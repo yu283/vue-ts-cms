@@ -12,4 +12,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+div {
+  background-color: #fff;
+}
+</style>
