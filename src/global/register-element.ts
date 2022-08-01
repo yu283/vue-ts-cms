@@ -2,10 +2,15 @@ import {
   ElAlert,
   ElAside,
   ElButton,
+  ElCheckbox,
   ElForm,
   ElFormItem,
+  ElIcon,
   ElInput,
-  ElRadio
+  ElLink,
+  ElRadio,
+  ElTabPane,
+  ElTabs
 } from 'element-plus'
 import { App } from 'vue'
 
@@ -16,7 +21,12 @@ const components = [
   ElInput,
   ElRadio,
   ElAlert,
-  ElAside
+  ElAside,
+  ElTabs,
+  ElTabPane,
+  ElIcon,
+  ElCheckbox,
+  ElLink
 ]
 
 export default (app: App): void => {

@@ -1,28 +1,29 @@
 import RHYRequest from '@/service/request'
 import { BASE_URL, TIME_OUT } from '@/service/request/config'
+import localCatch from '@/utils/cache'
 
 const rhyRequest = new RHYRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
   interceptors: {
     requestInterceptor: (config) => {
-      const token = ''
+      const token = localCatch.getCatch('token')
       if (token && config.headers) {
         config.headers.Authorization = `Bearer ${token}`
       }
-      console.log('requestInterceptor')
+      // console.log('requestInterceptor')
       return config
     },
     requestInterceptorCatch: (error) => {
-      console.log('requestInterceptorCatch')
+      // console.log('requestInterceptorCatch')
       return error
     },
     responseInterceptor: (result) => {
-      console.log('responseInterceptor')
+      // console.log('responseInterceptor')
       return result
     },
     responseInterceptorCatch: (error) => {
-      console.log('responseInterceptorCatch')
+      // console.log('responseInterceptorCatch')
       return error
     }
   }

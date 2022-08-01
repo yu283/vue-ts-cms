@@ -7,6 +7,5 @@
 **/*.sh
 
 /public/*
-/webpack.config.js
 /auto-imports.d.ts
 /components.d.ts

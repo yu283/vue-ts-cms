@@ -67,7 +67,7 @@ class RHYRequest {
     )
   }
 
-  request<T>(config: RHYRequestConfig): Promise<T> {
+  request<T>(config: RHYRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       //单个请求对config的处理
       if (config.interceptors?.requestInterceptor) {
@@ -97,27 +97,27 @@ class RHYRequest {
     })
   }
 
-  get<T>(config: RHYRequestConfig): Promise<T> {
+  get<T>(config: RHYRequestConfig<T>): Promise<T> {
     return this.request<T>({
       method: 'GET',
       ...config
     })
   }
-  post<T>(config: RHYRequestConfig): Promise<T> {
+  post<T>(config: RHYRequestConfig<T>): Promise<T> {
     return this.request<T>({
       method: 'POST',
       ...config
     })
   }
 
-  delete<T>(config: RHYRequestConfig): Promise<T> {
+  delete<T>(config: RHYRequestConfig<T>): Promise<T> {
     return this.request<T>({
       method: 'DELETE',
       ...config
     })
   }
 
-  patch<T>(config: RHYRequestConfig): Promise<T> {
+  patch<T>(config: RHYRequestConfig<T>): Promise<T> {
     return this.request<T>({
       method: 'PATCH',
       ...config
