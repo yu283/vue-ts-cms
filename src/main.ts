@@ -3,7 +3,6 @@ import { globalRegisterApp } from '@/global'
 import 'normalize.css'
 import './assets/css/index.less'
 
-import rhyRequest from './service'
 import App from './App.vue'
 
 import router from './router'

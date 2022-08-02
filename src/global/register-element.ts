@@ -3,12 +3,18 @@ import {
   ElAside,
   ElButton,
   ElCheckbox,
+  ElContainer,
   ElForm,
   ElFormItem,
+  ElHeader,
   ElIcon,
   ElInput,
   ElLink,
+  ElMain,
+  ElMenu,
+  ElMenuItem,
   ElRadio,
+  ElSubMenu,
   ElTabPane,
   ElTabs
 } from 'element-plus'
@@ -26,7 +32,13 @@ const components = [
   ElTabPane,
   ElIcon,
   ElCheckbox,
-  ElLink
+  ElLink,
+  ElContainer,
+  ElMain,
+  ElHeader,
+  ElMenu,
+  ElSubMenu,
+  ElMenuItem
 ]
 
 export default (app: App): void => {

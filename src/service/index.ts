@@ -11,19 +11,19 @@ const rhyRequest = new RHYRequest({
       if (token && config.headers) {
         config.headers.Authorization = `Bearer ${token}`
       }
-      // console.log('requestInterceptor')
+      console.log('requestInterceptor')
       return config
     },
     requestInterceptorCatch: (error) => {
-      // console.log('requestInterceptorCatch')
+      console.log('requestInterceptorCatch')
       return error
     },
     responseInterceptor: (result) => {
-      // console.log('responseInterceptor')
+      console.log('responseInterceptor')
       return result
     },
     responseInterceptorCatch: (error) => {
-      // console.log('responseInterceptorCatch')
+      console.log('responseInterceptorCatch')
       return error
     }
   }
