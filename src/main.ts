@@ -10,12 +10,6 @@ import store, { setupStore } from './store'
 
 const app = createApp(App)
 
-interface DataType {
-  data: any
-  returnCode: string
-  success: boolean
-}
-
 setupStore()
 // 注册element-plus
 app.use(globalRegisterApp)

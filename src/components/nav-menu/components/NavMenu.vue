@@ -30,8 +30,12 @@
               /></el-icon>
               <span v-if="!collapse">{{ item.name }}</span>
             </template>
+            <!--遍历item-->
             <template v-for="subItem in item.children" :key="subItem.id">
-              <el-menu-item :index="subItem.id + ''">
+              <el-menu-item
+                :index="subItem.id + ''"
+                @click="handleMenuItemClick(subItem)"
+              >
                 <span>{{ subItem.name }}</span>
               </el-menu-item>
             </template>
@@ -51,6 +55,8 @@
 import { useStore } from '@/store'
 import { computed, defineProps, withDefaults } from 'vue'
 import { Monitor, Setting, ShoppingBag, Message } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router'
+
 const props = withDefaults(
   defineProps<{
     collapse: boolean
@@ -63,6 +69,12 @@ const store = useStore()
 const userMenus = computed(() => {
   return store.state.login.userMenus
 })
+const router = useRouter()
+const handleMenuItemClick = (item: any) => {
+  router.push({
+    path: item.url ?? '/not-found'
+  })
+}
 </script>
 
 <style scoped lang="less">
