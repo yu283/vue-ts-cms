@@ -1,5 +1,6 @@
 import rhyRequest from '@/service'
-import { IAccount, IDataType, ILoginResult } from '@/service/login/types'
+import { IAccount, ILoginResult } from '@/service/login/types'
+import { IDataType } from '@/service/types'
 
 enum LoginAPI {
   AccountLogin = 'login',

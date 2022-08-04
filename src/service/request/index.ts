@@ -67,7 +67,7 @@ class RHYRequest {
     )
   }
 
-  request<T>(config: RHYRequestConfig<T>): Promise<T> {
+  request<T = any>(config: RHYRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       //单个请求对config的处理
       if (config.interceptors?.requestInterceptor) {

@@ -9,7 +9,7 @@
       text-color="#fff"
       background-color="#545c64"
       class="el-menu-vertical"
-      default-active="2"
+      :default-active="defaultValue"
       :collapse="collapse"
     >
       <template v-for="item in userMenus" :key="item.id">
@@ -53,9 +53,10 @@
 
 <script lang="ts" setup>
 import { useStore } from '@/store'
-import { computed, defineProps, withDefaults } from 'vue'
+import { computed, defineProps, ref, withDefaults } from 'vue'
 import { Monitor, Setting, ShoppingBag, Message } from '@element-plus/icons-vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { pathMapToMenu } from '@/utils/mapMenus'
 
 const props = withDefaults(
   defineProps<{
@@ -70,6 +71,12 @@ const userMenus = computed(() => {
   return store.state.login.userMenus
 })
 const router = useRouter()
+const route = useRoute()
+const currentPath = route.path
+const menu = pathMapToMenu(userMenus.value, currentPath)
+const defaultValue = ref(menu.id + '')
+
+//function
 const handleMenuItemClick = (item: any) => {
   router.push({
     path: item.url ?? '/not-found'

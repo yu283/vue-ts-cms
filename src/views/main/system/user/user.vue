@@ -1,15 +1,19 @@
 <template>
   <div class="user">
-    <div class="search">
-      <RHYForm v-bind="searchFormConfig"></RHYForm>
-    </div>
-    <div class="content"></div>
+    <PageSearch :searchFormConfig="searchFormConfig"></PageSearch>
+    <PageContent
+      :pageName="pageName"
+      :contentTableConfig="contentTableConfig"
+    ></PageContent>
   </div>
 </template>
 
 <script lang="ts" setup>
-import RHYForm from '@/base-ui/form'
+import PageSearch from '@/components/page-search'
 import { searchFormConfig } from '@/views/main/system/user/config/search.config'
+import { contentTableConfig } from '@/views/main/system/user/config/contentConfig'
+import PageContent from '@/components/page-content'
+const pageName = 'users'
 </script>
 
 <style scoped lang="less"></style>

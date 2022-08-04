@@ -9,7 +9,7 @@ import router from './router'
 import store, { setupStore } from './store'
 
 const app = createApp(App)
-
+//注册路由
 setupStore()
 // 注册element-plus
 app.use(globalRegisterApp)
