@@ -10,7 +10,11 @@ const systemModule: Module<ISystemState, IRootState> = {
       usersList: [],
       usersCount: 0,
       roleList: [],
-      roleCount: 0
+      roleCount: 0,
+      goodsList: [],
+      goodsCount: 0,
+      menuList: [],
+      menuCount: 0
     }
   },
   getters: {
@@ -43,6 +47,18 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
     changeRoleCount(state, roleCount: number) {
       state.roleCount = roleCount
+    },
+    changeGoodsList(state, value: any[]) {
+      state.goodsList = value
+    },
+    changeGoodsCount(state, value: number) {
+      state.goodsCount = value
+    },
+    changeMenuList(state, value: any[]) {
+      state.menuList = value
+    },
+    changeMenuCount(state, value: number) {
+      state.menuCount = value
     }
   },
   actions: {

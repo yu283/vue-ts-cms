@@ -13,6 +13,7 @@
       border
       style="width: 100%"
       @selection-change="selectionChange"
+      v-bind="childrenProps"
     >
       <el-table-column
         v-if="showSelectColumn"
@@ -29,7 +30,7 @@
         width="60"
       ></el-table-column>
       <template v-for="item in propList" :key="item.prop">
-        <el-table-column v-bind="item" align="center">
+        <el-table-column v-bind="item" align="center" show-overflow-tooltip>
           <template #default="scope">
             <slot :name="item.slotName" :row="scope.row">
               {{ scope.row[item.prop] }}
@@ -38,7 +39,7 @@
         </el-table-column>
       </template>
     </el-table>
-    <div class="footer">
+    <div class="footer" v-if="showFooter">
       <slot name="footer">
         <el-pagination
           v-model:currentPage="page.currentPage"
@@ -56,7 +57,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, defineProps, ref, withDefaults } from 'vue'
+import { defineEmits, defineProps, withDefaults } from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -67,6 +68,8 @@ const props = withDefaults(
     title: string
     listCount: number
     page: any
+    childrenProps: any
+    showFooter: boolean
   }>(),
   {
     showIndexColumn: false,
@@ -76,7 +79,9 @@ const props = withDefaults(
     page: {
       currentPage: 0,
       pageSize: 8
-    }
+    },
+    childrenProps: {},
+    showFooter: true
   }
 )
 const emit = defineEmits<{
@@ -131,5 +136,12 @@ const handleCurrentChange = (currentPage: number) => {
   .el-pagination {
     text-align: right;
   }
+}
+.el-table :deep(th.el-table__cell),
+.el-table :deep(td.el-table__cell) {
+  position: static;
+}
+.el-table__fixed-body-wrapper {
+  z-index: auto !important;
 }
 </style>
