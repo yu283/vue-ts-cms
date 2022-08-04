@@ -39,13 +39,24 @@
       </template>
     </el-table>
     <div class="footer">
-      <slot name="footer"></slot>
+      <slot name="footer">
+        <el-pagination
+          v-model:currentPage="page.currentPage"
+          v-model:page-size="page.pageSize"
+          :page-sizes="[8, 10, 15]"
+          :background="false"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="listCount"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        />
+      </slot>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, defineProps, withDefaults } from 'vue'
+import { defineEmits, defineProps, ref, withDefaults } from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -54,15 +65,23 @@ const props = withDefaults(
     showIndexColumn: boolean
     showSelectColumn: boolean
     title: string
+    listCount: number
+    page: any
   }>(),
   {
     showIndexColumn: false,
     showSelectColumn: false,
-    title: ''
+    title: '',
+    listCount: 0,
+    page: {
+      currentPage: 0,
+      pageSize: 8
+    }
   }
 )
 const emit = defineEmits<{
   (e: 'selectionChange', value: any): void
+  (e: 'update:page', value: any): void
 }>()
 const indexMethod = (index: number) => {
   return index + 1
@@ -72,6 +91,19 @@ const showIndex = () => {
 }
 const selectionChange = (value: any) => {
   emit('selectionChange', value)
+}
+//分页器的函数
+const handleSizeChange = (pageSize: number) => {
+  emit('update:page', {
+    ...props.page,
+    pageSize
+  })
+}
+const handleCurrentChange = (currentPage: number) => {
+  emit('update:page', {
+    ...props.page,
+    currentPage: currentPage - 1
+  })
 }
 </script>
 

@@ -2,8 +2,10 @@
   <div class="page-content">
     <RHYTable
       :listData="dataList"
+      :listCount="dataCount"
       @selectionChange="selectionChange"
       v-bind="contentTableConfig"
+      v-model:page="pageInfo"
     >
       <!--        header中的插槽-->
       <template #header-handler>
@@ -30,26 +32,20 @@
           <el-button size="small" :icon="Delete" type="danger">删除</el-button>
         </div>
       </template>
-      <template #footer>
-        <el-pagination
-          v-model:currentPage="currentPage4"
-          v-model:page-size="pageSize4"
-          :page-sizes="[8]"
-          :small="small"
-          :disabled="disabled"
-          :background="background"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="400"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
-      </template>
+      <template #footer> </template>
     </RHYTable>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, withDefaults } from 'vue'
+import {
+  computed,
+  defineExpose,
+  defineProps,
+  ref,
+  watch,
+  withDefaults
+} from 'vue'
 import { Edit, Delete, Refresh } from '@element-plus/icons-vue'
 import RHYTable from '@/base-ui/table'
 import { useStore } from '@/store'
@@ -63,20 +59,46 @@ const props = withDefaults(
     contentTableConfig: {}
   }
 )
+//双向绑定pageInfo
+const pageInfo = ref({
+  currentPage: 0,
+  pageSize: 5
+})
+watch(pageInfo, () => {
+  getPageData()
+})
+//选择改变
 const selectionChange = (value: any) => {
   // console.log(value)
 }
+/*VUEX*/
 const store = useStore()
-store.dispatch('system/getPageListAction', {
-  pageName: props.pageName,
-  queryInfo: {
-    offset: 0,
-    size: 8
-  }
-})
+//发送网络请求
+const getPageData = (queryInfo: any = {}) => {
+  store.dispatch('system/getPageListAction', {
+    pageName: props.pageName,
+    queryInfo: {
+      offset:
+        pageInfo.value.currentPage >= 0
+          ? pageInfo.value.currentPage * pageInfo.value.pageSize
+          : 0,
+      size: pageInfo.value.pageSize,
+      ...queryInfo
+    }
+  })
+}
+getPageData()
+//从Vuex中获取数据
 const dataList = computed(() =>
   store.getters[`system/pageListData`](props.pageName)
 )
+const dataCount = computed(() =>
+  store.getters['system/pageListCount'](props.pageName)
+)
+//暴露出去的属性
+defineExpose({
+  getPageData
+})
 </script>
 
 <style scoped>

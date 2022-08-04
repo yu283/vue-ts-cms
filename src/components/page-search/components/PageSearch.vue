@@ -10,7 +10,7 @@
             <el-button type="primary" @click="resetClick"
               ><el-icon><Refresh /></el-icon>重置</el-button
             >
-            <el-button type="primary"
+            <el-button type="primary" @click="queryClick"
               ><el-icon><Search /></el-icon>搜索</el-button
             >
           </div>
@@ -30,6 +30,12 @@ const props = defineProps<{
   searchFormConfig: any
 }>()
 
+// eslint-disable-next-line no-undef
+const emit = defineEmits<{
+  (e: 'resetBtnClick'): void
+  (e: 'queryBtnClick', formData: any): void
+}>()
+
 const formItems = props.searchFormConfig?.formItems ?? []
 const formOriginData: any = {}
 for (let item of formItems) {
@@ -38,7 +44,16 @@ for (let item of formItems) {
 const formData = ref(formOriginData)
 //重置的处理
 const resetClick = () => {
-  formData.value = formOriginData
+  for (const key in formOriginData) {
+    //递归里面的键 使得下一层的浅拷贝可以监测到值的修改
+    formData.value[`${key}`] = formOriginData[key]
+  }
+  // formData.value = formOriginData
+  emit('resetBtnClick')
+}
+//搜索的处理
+const queryClick = () => {
+  emit('queryBtnClick', formData.value)
 }
 </script>
 
