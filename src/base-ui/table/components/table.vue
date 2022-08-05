@@ -68,8 +68,8 @@ const props = withDefaults(
     title: string
     listCount: number
     page: any
-    childrenProps: any
-    showFooter: boolean
+    childrenProps?: any
+    showFooter?: boolean
   }>(),
   {
     showIndexColumn: false,
@@ -80,7 +80,7 @@ const props = withDefaults(
       currentPage: 0,
       pageSize: 8
     },
-    childrenProps: {},
+    childrenProps: () => ({}),
     showFooter: true
   }
 )
@@ -107,7 +107,7 @@ const handleSizeChange = (pageSize: number) => {
 const handleCurrentChange = (currentPage: number) => {
   emit('update:page', {
     ...props.page,
-    currentPage: currentPage - 1
+    currentPage: currentPage
   })
 }
 </script>

@@ -9,7 +9,9 @@
     >
       <!--        header中的插槽-->
       <template #header-handler>
-        <el-button v-if="isCreate" type="primary" plain>新建</el-button>
+        <el-button @click="createClick" v-if="isCreate" type="primary" plain
+          >新建</el-button
+        >
         <!--          <el-button :icon="Refresh" type="primary" plain>刷新</el-button>-->
       </template>
       <!--        列中的插槽-->
@@ -28,12 +30,22 @@
       <template #updateAt="scope">
         <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
       </template>
-      <template #handle>
+      <template #handle="scope">
         <div class="handle-btns">
-          <el-button size="small" :icon="Edit" v-if="isUpdate" type="primary"
+          <el-button
+            @click="editClick(scope.row)"
+            size="small"
+            :icon="Edit"
+            v-if="isUpdate"
+            type="primary"
             >编辑</el-button
           >
-          <el-button size="small" :icon="Delete" v-if="isDelete" type="danger"
+          <el-button
+            size="small"
+            :icon="Delete"
+            v-if="isDelete"
+            type="danger"
+            @click="deleteClick(scope.row)"
             >删除</el-button
           >
         </div>
@@ -75,6 +87,11 @@ const props = withDefaults(
     contentTableConfig: {}
   }
 )
+// eslint-disable-next-line no-undef
+const emit = defineEmits<{
+  (e: 'newBtnClick'): void
+  (e: 'editBtnClick', item: any): void
+}>()
 //获取操作的权限
 const isCreate = usePermission(props.pageName, 'create')
 const isUpdate = usePermission(props.pageName, 'update')
@@ -83,7 +100,7 @@ const isQuery = usePermission(props.pageName, 'query')
 
 //双向绑定pageInfo
 const pageInfo = ref({
-  currentPage: 0,
+  currentPage: 1,
   pageSize: 10
 })
 watch(pageInfo, () => {
@@ -101,10 +118,7 @@ const getPageData = (queryInfo: any = {}) => {
   store.dispatch('system/getPageListAction', {
     pageName: props.pageName,
     queryInfo: {
-      offset:
-        pageInfo.value.currentPage >= 0
-          ? pageInfo.value.currentPage * pageInfo.value.pageSize
-          : 0,
+      offset: (pageInfo.value.currentPage - 1) * pageInfo.value.pageSize,
       size: pageInfo.value.pageSize,
       ...queryInfo
     }
@@ -128,6 +142,19 @@ const otherPropSlots = props.contentTableConfig?.propList.filter(
     return true
   }
 )
+//删除的逻辑 新增 修改的逻辑
+const deleteClick = (item: any) => {
+  store.dispatch('system/deletePageDataAction', {
+    pageName: props.pageName,
+    id: item.id
+  })
+}
+const createClick = () => {
+  emit('newBtnClick')
+}
+const editClick = (item: any) => {
+  emit('editBtnClick', item)
+}
 //暴露出去的属性
 defineExpose({
   getPageData

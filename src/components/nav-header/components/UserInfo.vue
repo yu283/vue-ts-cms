@@ -38,6 +38,7 @@ let name = store.state.login.userInfo.name
 if (name === 'coderwhy') {
   name = 'renhy'
 }
+
 const quitLogin = () => {
   router.push('/login')
   localCatch.deleteCatch('token')

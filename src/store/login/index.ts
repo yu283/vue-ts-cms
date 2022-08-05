@@ -10,6 +10,7 @@ import { IAccount } from '@/service/login/types'
 import localCatch from '@/utils/cache'
 import router from '@/router'
 import { mapMenusToPermissions, mapMenusToRoutes } from '@/utils/mapMenus'
+import store from '@/store'
 
 const loginModule: Module<ILoginState, IRootState> = {
   namespaced: true,
@@ -42,11 +43,13 @@ const loginModule: Module<ILoginState, IRootState> = {
   },
   getters: {},
   actions: {
-    async accountLoginAction({ commit }, payload: IAccount) {
+    async accountLoginAction({ commit, dispatch }, payload: IAccount) {
       const loginResult = await accountLoginRequest(payload)
       const { id, token } = loginResult.data
       commit('changeToken', token)
       localCatch.setCache('token', token)
+      //初始化的请求
+      dispatch('getInitialDataAction', null, { root: true })
       //其他的操作
       const userInfoResult = await getUserInfoById(id)
       const userInfo = userInfoResult.data
@@ -60,10 +63,11 @@ const loginModule: Module<ILoginState, IRootState> = {
       //跳转页面
       router.push('/main')
     },
-    loadLocalLogin({ commit }) {
+    loadLocalLogin({ commit, dispatch }) {
       const token = localCatch.getCatch('token')
       if (token) {
         commit('changeToken', token)
+        dispatch('getInitialDataAction', null, { root: true })
       }
       const userInfo = localCatch.getCatch('userInfo')
       if (userInfo) {
