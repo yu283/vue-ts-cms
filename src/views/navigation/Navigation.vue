@@ -7,6 +7,8 @@
         </div>
       </template>
       <div class="message-a">欢迎来到我的项目展示</div>
+      <h3>RENHY</h3>
+      <h5>这是一个后台管理系统的项目，采用Vue3+TS开发，请跳转至登录开始</h5>
       <el-button
         @click="jumpLogin"
         class="rhy-button"
