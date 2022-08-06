@@ -4,7 +4,12 @@ import { firstMenu } from '@/utils/mapMenus'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/main'
+    redirect: '/navigation'
+  },
+  {
+    path: '/navigation',
+    name: 'navigation',
+    component: () => import('@/views/navigation/Navigation.vue')
   },
   {
     path: '/login',
@@ -16,7 +21,6 @@ const routes: Array<RouteRecordRaw> = [
     path: '/main',
     name: 'main',
     component: () => import('@/views/main/main.vue')
-    // children: [] 根据userMenus决定
   },
   {
     path: '/:pathMatch(.*)*',

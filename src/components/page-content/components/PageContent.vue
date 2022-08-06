@@ -73,7 +73,7 @@ import {
   watch,
   withDefaults
 } from 'vue'
-import { Edit, Delete, Refresh } from '@element-plus/icons-vue'
+import { Edit, Delete } from '@element-plus/icons-vue'
 import RHYTable from '@/base-ui/table'
 import { useStore } from '@/store'
 import { usePermission } from '@/hooks/usePermission'

@@ -1,18 +1,9 @@
 <template>
   <div class="list">
-    <h2>list</h2>
+    <h1>您没有权限</h1>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'list',
-  setup() {
-    return {}
-  }
-})
-</script>
+<script lang="ts" setup></script>
 
 <style scoped></style>

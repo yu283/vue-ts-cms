@@ -25,7 +25,7 @@ const options = computed(() => ({
     text: '全国销量统计',
     left: 'center',
     textStyle: {
-      color: '#fff'
+      color: '#aaa'
     }
   },
   tooltip: {
@@ -42,7 +42,7 @@ const options = computed(() => ({
     calculable: true,
     text: ['高', '低'],
     inRange: {
-      color: ['rgb(228,234,234)', 'rgb(148,147,145)', 'rgb(33,32,33)']
+      color: ['rgb(226,27,27)', 'rgb(100,231,31)', 'rgb(6,162,227)']
     },
     textStyle: {
       color: '#fff'
@@ -55,7 +55,7 @@ const options = computed(() => ({
       areaColor: '#f4cccc',
       borderColor: 'rgb(9, 54, 95)',
       itemStyle: {
-        areaColor: '#f4cccc'
+        areaColor: '#bdeba5'
       }
     }
   },

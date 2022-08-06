@@ -4,6 +4,7 @@ import login from '@/store/login'
 import system from '@/store/main/system'
 import { getPageDataList } from '@/service/main/system/system'
 import dashboard from '@/store/main/analysis/dashboard'
+import router from '@/router'
 
 const store = createStore<IRootState>({
   state() {
@@ -47,6 +48,9 @@ const store = createStore<IRootState>({
       commit('changeEntireDepartment', departmentList)
       commit('changeEntireRole', roleList)
       commit('changeEntireMenu', menuList)
+    },
+    async toLogin() {
+      router.push('/login')
     }
   },
   modules: {

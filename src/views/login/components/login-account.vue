@@ -23,8 +23,8 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const account = reactive({
-      name: localCatch.getCatch('name') ?? '',
-      password: localCatch.getCatch('password') ?? ''
+      name: localCatch.getCatch('name') ?? 'lilei',
+      password: localCatch.getCatch('password') ?? '123456'
     })
     const formRef = ref<FormInstance>()
     const loginAction = (isKeepPassword: boolean) => {
