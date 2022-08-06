@@ -35,7 +35,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to) => {
-  if (to.path !== '/login') {
+  if (to.path !== '/login' && to.path !== '/navigation') {
     const token = localCatch.getCatch('token')
     if (!token) {
       return '/login'
